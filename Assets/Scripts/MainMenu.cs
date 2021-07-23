@@ -43,6 +43,7 @@ public class MainMenu : MonoBehaviour
                 break;
             case "up":
                 Debug.Log ("Up pressed!");
+                StartGame();
                 break;
             case "down":
                 Debug.Log ("Down pressed!");

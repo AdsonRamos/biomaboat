@@ -41,7 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _WaterNormal:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 2, y: 2}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
         m_Texture: {fileID: 0}
@@ -55,23 +55,23 @@ Material:
     - _Float1: 0.85
     - _Float3: 0.9
     - _Foam: 1.79
-    - _FoamDepth: 0.3
-    - _FoamFalloff: -50
+    - _FoamDepth: 0.5
+    - _FoamFalloff: -5.3
     - _FoamPower: 4
     - _FoamSmoothness: 0.3
-    - _FoamSpecular: 0.3
+    - _FoamSpecular: 0.01
     - _Foamfalloff: -4
     - _MaskClipValue: 0.5
-    - _NormalScale: 0
+    - _NormalScale: 1.3
     - _ShoreDepth: -6.35
     - _ShoreFalloff: -10
     - _Smoothness: 0.9
     - _Specular: 0.1
     - _TessValue: 6
-    - _WaterDepth: 2.31
-    - _WaterFalloff: -9.31
-    - _WaterSmoothness: -0.24
-    - _WaterSpecular: 0.3
+    - _WaterDepth: 1.64
+    - _WaterFalloff: -9.6
+    - _WaterSmoothness: -0.36
+    - _WaterSpecular: 0.25
     - _WavesAmount: 8
     - _WavesAmplitude: 0.13
     - __dirty: 0
@@ -79,7 +79,7 @@ Material:
     - _Color: {r: 0.4292453, g: 0.7559531, b: 1, a: 1}
     - _Color0: {r: 0, g: 0.6749488, b: 0.8088235, a: 0}
     - _Color1: {r: 0, g: 0.048731543, b: 0.22794023, a: 0}
-    - _DeepColor: {r: 0.2511125, g: 0.7187613, b: 0.9339623, a: 0.81960785}
+    - _DeepColor: {r: 0.29547882, g: 0.6095555, b: 0.754717, a: 0.81960785}
     - _ShalowColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

@@ -19,45 +19,45 @@ public class PlayerController : MonoBehaviour
         rigidbody = playerTransform.GetComponent<Rigidbody>();
     }
 
-    void Awake () {
-		AirConsole.instance.onMessage += OnMessage;
-	}
+    // void Awake () {
+	// 	AirConsole.instance.onMessage += OnMessage;
+	// }
 
-    void OnMessage (int from, JToken data){
-		Debug.Log ("message: " + data);
+    // void OnMessage (int from, JToken data){
+	// 	Debug.Log ("message: " + data);
 
-		this.ButtonInput (data["action"].ToString());
-	}
+	// 	this.ButtonInput (data["action"].ToString());
+	// }
 
-    public void ButtonInput (string input){
-		switch (input) {
-            case "right":
-                Debug.Log ("Right pressed!");
-                break;
-            case "left":
-                Debug.Log ("Left pressed!");
-                break;
-            case "right-up":
-                Debug.Log ("Right-up pressed!");
-                break;
-            case "left-up":
-                Debug.Log ("Left-up pressed!");
-                break;
-            case "up":
-                Debug.Log ("Up pressed!");
-                break;
-            case "down":
-                Debug.Log ("Down pressed!");
-                break;
-            }
-	}
+    // public void ButtonInput (string input){
+	// 	switch (input) {
+    //         case "right":
+    //             Debug.Log ("Right pressed!");
+    //             break;
+    //         case "left":
+    //             Debug.Log ("Left pressed!");
+    //             break;
+    //         case "right-up":
+    //             Debug.Log ("Right-up pressed!");
+    //             break;
+    //         case "left-up":
+    //             Debug.Log ("Left-up pressed!");
+    //             break;
+    //         case "up":
+    //             Debug.Log ("Up pressed!");
+    //             break;
+    //         case "down":
+    //             Debug.Log ("Down pressed!");
+    //             break;
+    //         }
+	// }
 
     // Update is called once per frame
     void Update()
     {   
-        rigidbody.AddForce(Vector3.forward * Time.deltaTime * boatSpeed);
+        rigidbody.AddForce(rigidbody.transform.forward * Time.deltaTime * boatSpeed);
 
         Vector3 PlayerMove = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
-        rigidbody.AddForce(PlayerMove * Time.deltaTime * playerSpeed, ForceMode.Force);
+        rigidbody.AddForce(PlayerMove * Time.deltaTime * playerSpeed, ForceMode.Acceleration);
     }
 }

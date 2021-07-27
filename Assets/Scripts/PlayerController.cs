@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerVelocity;
     private Transform playerTransform;
     private new Rigidbody rigidbody;
+    float accelerationForce = 5f;
     public float boatSpeed = 2.0f;
     public float playerSpeed = 2.0f;
 
@@ -33,9 +34,11 @@ public class PlayerController : MonoBehaviour
 		switch (input) {
             case "right":
                 Debug.Log ("Right pressed!");
+                rigidbody.AddForce(Vector3.right * accelerationForce, ForceMode.Impulse);
                 break;
             case "left":
                 Debug.Log ("Left pressed!");
+                rigidbody.AddForce(Vector3.left * accelerationForce, ForceMode.Impulse);
                 break;
             case "right-up":
                 Debug.Log ("Right-up pressed!");

@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
 {   
     public float boatSpeed = 2.0f;
     public float playerSpeed = 2.0f;
-    public float accelerationForce = 5f;
-    private Vector3 playerVelocity;
+    public float speedMultiplicator = 0.2f;
+    public bool airConsole = false;
     private Transform playerTransform;
     private new Rigidbody rigidbody;
     private bool movedRight = false;
@@ -17,28 +17,32 @@ public class PlayerController : MonoBehaviour
     private bool connected = false;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         playerTransform = gameObject.transform;
         rigidbody = playerTransform.GetComponent<Rigidbody>();
+
+        if (!airConsole) {
+            connected = true;
+        }
     }
 
     void Awake () {
-        AirConsole.instance.onMessage += OnMessage;			
-        AirConsole.instance.onConnect += OnConnect;	
+        if (airConsole) {
+            AirConsole.instance.onMessage += OnMessage;			
+            AirConsole.instance.onConnect += OnConnect;	
+        }
     }
 
-    void OnMessage (int from, JToken data){
-      Debug.Log ("message: " + data);
-
-      this.ButtonInput (data["action"].ToString());
+    void OnMessage (int from, JToken data) {
+        Debug.Log ("message: " + data);
+        this.ButtonInput (data["action"].ToString());
     }
 
     void OnConnect (int device){
-		Debug.Log ("Successfully connected with device " + device);
+        Debug.Log ("Successfully connected with device " + device);
         connected = true;
-	}
+    }
 
     public void ButtonInput (string input) {
       switch (input) {
@@ -66,6 +70,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update() {   
         if (connected) {
+            boatSpeed += speedMultiplicator * Time.deltaTime;
             rigidbody.AddForce(rigidbody.transform.forward * Time.deltaTime * boatSpeed);
 
             Vector3 PlayerMove = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
@@ -80,9 +85,11 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnDestroy () {
-		if (AirConsole.instance != null) {
-			AirConsole.instance.onMessage -= OnMessage;				
-			AirConsole.instance.onConnect -= OnConnect;		
-		}
-	}
+        if (airConsole) {
+            if (AirConsole.instance != null) {
+                AirConsole.instance.onMessage -= OnMessage;				
+                AirConsole.instance.onConnect -= OnConnect;		
+            }
+        }
+    }
 }

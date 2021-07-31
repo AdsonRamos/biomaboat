@@ -7,10 +7,6 @@ public class CameraController : MonoBehaviour
     public Rigidbody player;
     public Vector3 offset = new Vector3(0, 0, 0);
     public float smoothSpeed = 0.1f;
-    void Start()
-    {
-        
-    }
 
     void Update()
     {

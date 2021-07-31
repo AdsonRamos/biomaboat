@@ -12,7 +12,7 @@ public class WaterManager : MonoBehaviour
         meshFilter = GetComponent<MeshFilter>();
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         Vector3[] vertices = meshFilter.mesh.vertices;
 
         for (int i = 0; i < vertices.Length; i++) {
@@ -20,9 +20,6 @@ public class WaterManager : MonoBehaviour
                 transform.position.x + vertices[i].x,
                 transform.position.z + vertices[i].z
             );
-            // vertices[i].y = WaveManager.instance.GetWaveHeight(
-            //     transform.position.x + vertices[i].x
-            // );
         }
 
         meshFilter.mesh.vertices = vertices;

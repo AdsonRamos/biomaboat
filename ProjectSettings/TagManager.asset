@@ -7,6 +7,8 @@ TagManager:
   - MapCollider
   - Obstacles
   - Item
+  - Hud
+  - MainMenu
   layers:
   - Default
   - TransparentFX

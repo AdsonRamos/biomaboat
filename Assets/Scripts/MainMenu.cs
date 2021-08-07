@@ -2,69 +2,65 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Newtonsoft.Json.Linq;
-using NDream.AirConsole;
+// using Newtonsoft.Json.Linq;
+// using NDream.AirConsole;
 
 public class MainMenu : MonoBehaviour
 {
-    void Awake () {
-		AirConsole.instance.onMessage += OnMessage;		
-		AirConsole.instance.onReady += OnReady;		
-		AirConsole.instance.onConnect += OnConnect;		
-	}
+    // public GameObject hud;
+    
+    // void Awake () {
+	// 	AirConsole.instance.onMessage += OnMessage;		
+	// 	AirConsole.instance.onReady += OnReady;		
+	// 	AirConsole.instance.onConnect += OnConnect;		
+    //     hud.SetActive(false);
+	// }
 
-    void OnReady(string code){
-		Debug.Log ("Welcome to my AirConsole example!");
-	}
+    // void OnReady(string code){
+	// 	Debug.Log ("Welcome to my AirConsole example!");
+	// }
 
-	void OnConnect (int device){
-		Debug.Log ("Successfully connected with device " + device);
-	}
+	// void OnConnect (int device){
+	// 	Debug.Log ("Successfully connected with device " + device);
+	// }
 
-    void OnMessage (int from, JToken data){
-		Debug.Log ("message: " + data);
+    // void OnMessage (int from, JToken data){
+	// 	Debug.Log ("message: " + data);
 
-		this.ButtonInput (data["action"].ToString());
-	}
+	// 	this.ButtonInput (data["action"].ToString());
+	// }
 
-    public void ButtonInput (string input){
-		switch (input) {
-            case "right":
-                Debug.Log ("Right pressed!");
-                break;
-            case "left":
-                Debug.Log ("Left pressed!");
-                break;
-            case "right-up":
-                Debug.Log ("Right-up pressed!");
-                break;
-            case "left-up":
-                Debug.Log ("Left-up pressed!");
-                break;
-            case "up":
-                Debug.Log ("Up pressed!");
-                StartGame();
-                break;
-            case "down":
-                Debug.Log ("Down pressed!");
-                break;
-            }
-	}
+    // public void ButtonInput (string input){
+	// 	switch (input) {
+    //         case "start":
+    //             Debug.Log (MenuSelect.currentItem);
+    //             if (MenuSelect.currentItem == 0) {
+    //                 this.StartGame ();
+    //             } else if (MenuSelect.currentItem == 1) {
+    //                 Application.Quit();
+    //             }
+    //             break;
+    //         case "left":
+    //             MenuSelect.currentItem = 0;
+    //             break;
+    //         case "right":
+    //             MenuSelect.currentItem = 1;
+    //             break;
+    //         }
+	// }
 
-    public void ExitButton() {
-        Application.Quit();
-        Debug.Log("Game closed");
-    }
+    // public void StartGame() {
+    //     Debug.Log ("Started!");
+    //     hud.SetActive(true);
+    //     gameObject.SetActive(false);
+    //     PlayerController.gameStarted = true;
+    // }
 
-    public void StartGame() {
-        SceneManager.LoadScene("Game");
-    }
-
-    void OnDestroy () {
-		if (AirConsole.instance != null) {
-			AirConsole.instance.onMessage -= OnMessage;		
-			AirConsole.instance.onReady -= OnReady;		
-			AirConsole.instance.onConnect -= OnConnect;		
-		}
-	}
+    // void OnDestroy () {
+	// 	if (AirConsole.instance != null) {
+	// 		AirConsole.instance.onMessage -= OnMessage;		
+	// 		AirConsole.instance.onReady -= OnReady;		
+	// 		AirConsole.instance.onConnect -= OnConnect;		
+	// 	}
+	// }
 }

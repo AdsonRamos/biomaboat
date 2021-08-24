@@ -1,0 +1,151 @@
+
+<html>
+    <head>
+      <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+      <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
+      <style type=text/css>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans&display=swap');
+
+        body {
+          margin: 0 auto;
+          background-color: #497d61;
+          background-image: linear-gradient(
+        45deg
+        , #20402e 0%, #615f33 100%);
+        }
+
+        #background {
+          display: flex;
+          align-items: stretch;
+          height: 100vh;
+          /* background-image: url("Images/background-control.png");
+          background-size: auto;
+          background-repeat: no-repeat;
+          background-position: center; */
+        }
+
+        .button {
+          color: #114026;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 5px 10px 5px 10px;
+          font-family: 'Fredoka One', cursive;
+        }
+
+        .button:hover, .button:focus {
+          opacity: 0.7;
+        }
+
+        .center {
+          width: 10vw;
+          height: 10vw;
+          align-self: flex-end;
+          border-radius: 20px;
+          margin-bottom: 100px;
+          font-size: 1.5vw;
+        }
+
+        .side {
+          flex: 1;
+          border-radius: 20px;
+          font-size: 2vw;
+          margin: 20px;
+        }
+
+        #left-button{
+          background-image: linear-gradient( 183.5deg,  rgba(244,173,6,1) 18.6%, rgba(229,251,31,1) 119.9% );
+          /* background-image: url("Images/left-control.png");
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center; */
+          /* border: 1px solid black; */
+        }
+
+        #right-button{
+          background-image: linear-gradient( 
+        183.5deg
+        , #90ff3c 18.6%, rgb(227 251 31) 119.9% );
+          /* background-image: url("Images/right-control.png");
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center; */
+          /* border: 1px solid black; */
+        }
+
+        #center{
+          background-image: linear-gradient( 
+        183.5deg
+        , #ff3c3c 18.6%, rgb(251 31 173) 119.9% );
+          /* background-image: url("Images/ok-control.png");
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center; */
+          /* border: 1px solid black; */
+        }
+      </style>
+      
+      <script type="text/javascript">
+    
+        var airconsole;
+    
+        function App() {
+          var me = this;
+          me.airconsole = new AirConsole({"orientation": "landscape", "synchronize_time" : "true"});
+    
+          me.airconsole.onMessage = function(from, data) {
+            console.log("onMessage", from, data);
+          };
+    
+          /*
+           * Here we are adding support for mouse events manually.
+           * --> WE STRONGLY ENCOURAGE YOU TO USE THE AIRCONSOLE CONTROLS LIBRARY
+           * WHICH IS EVEN BETTER (BUT WE DONT WANT TO BLOAT THE CODE HERE).
+           * https://github.com/AirConsole/airconsole-controls/
+           * 
+           * DO NOT USE ONCLICK HANDLERS.
+           * THEY ADD A 200MS DELAY!
+           */
+          if (!("ontouchstart" in document.createElement("div"))) {
+            var elements = document.getElementsByTagName("*");
+            for (var i = 0; i < elements.length; ++i) {
+              var element = elements[i];
+              var ontouchstart = element.getAttribute("ontouchstart");
+              if (ontouchstart) {
+                element.setAttribute("onmousedown", ontouchstart);
+              }
+              var ontouchend = element.getAttribute("ontouchend");
+              if (ontouchend) {
+                element.setAttribute("onmouseup", ontouchend);
+              }
+            }
+          }
+        }
+    
+        App.prototype.sendMessageToScreen = function(msg) {
+            this.airconsole.message(AirConsole.SCREEN, {"action": msg});
+        };
+    
+      </script>
+     
+    </head>
+      <body onload="window.app = new App()">
+        <div id="background">
+          <div class="button side" id="left-button" ontouchstart="window.app.sendMessageToScreen('left')" ontouchend="window.app.sendMessageToScreen('left-up')">
+            <h1>
+              Left
+            </h1>
+          </div>
+          <div class="button center" id="center" ontouchstart="window.app.sendMessageToScreen('start')">
+            <h1>
+              Start
+            </h1>
+          </div>
+          <div class="button side" id="right-button" ontouchstart="window.app.sendMessageToScreen('right')" ontouchend="window.app.sendMessageToScreen('right-up')">
+            <h1>
+              Right
+            </h1>
+          </div>
+        </div>
+      </body>
+    </html>

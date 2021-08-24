@@ -6,15 +6,18 @@ public class AirConsoleController : MonoBehaviour
 {   
     public static bool connected = false;
     public static bool gameStarted = false;
+    public static bool gameRestarted = false;
     public static bool movedRight = false;
     public static bool movedLeft = false;
     public GameObject hud;
     public GameObject mainMenu;
+    public GameObject gameOver;
 
     void Awake () {
         AirConsole.instance.onMessage += OnMessage;			
         AirConsole.instance.onConnect += OnConnect;	
         hud.SetActive(false);
+        gameOver.SetActive(false);
     }
 
     void OnMessage (int from, JToken data) {
@@ -34,6 +37,8 @@ public class AirConsoleController : MonoBehaviour
                     mainMenu.SetActive(true);
                     gameStarted = false;
                     hud.SetActive(false);
+                    movedLeft = false;
+                    movedRight = false;
                 } else {
                     if (MenuSelect.currentItem == 0) {
                         this.StartGame ();
@@ -72,7 +77,23 @@ public class AirConsoleController : MonoBehaviour
     public void StartGame() {
         hud.SetActive(true);
         mainMenu.SetActive(false);
+        gameOver.SetActive(false);
         gameStarted = true;
+        MusicController.instance.PlayGameMusic();
+    }
+
+    private void Update() {
+        if (Health.currentHealth <= 0) {
+            gameStarted = false;
+            gameRestarted = true;
+            hud.SetActive(false);
+            gameOver.SetActive(true);
+            mainMenu.SetActive(false);
+            Health.currentHealth = 100;
+            MusicController.instance.PlayMenuMusic();
+            movedLeft = false;
+            movedRight = false;
+        }
     }
 
     void OnDestroy () {

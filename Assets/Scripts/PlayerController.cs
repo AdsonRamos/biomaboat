@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 // using Newtonsoft.Json.Linq;
 // using NDream.AirConsole;
 
@@ -9,13 +10,8 @@ public class PlayerController : MonoBehaviour
     public float boatSpeed = 2.0f;
     public float playerSpeed = 2.0f;
     public float speedMultiplicator = 0.2f;
-    public bool airConsole = false;
     private Transform playerTransform;
     private new Rigidbody rigidbody;
-    // private bool movedRight = false;
-    // private bool movedLeft = false;
-    // private bool connected = false;
-    // public static bool gameStarted = false;
 
 
     void Start()
@@ -23,49 +19,15 @@ public class PlayerController : MonoBehaviour
         playerTransform = gameObject.transform;
         rigidbody = playerTransform.GetComponent<Rigidbody>();
 
-        // if (!airConsole) {
-        //     connected = true;
-        // }
     }
-
-    // void Awake () {
-    //     if (airConsole) {
-    //         AirConsole.instance.onMessage += OnMessage;			
-    //         AirConsole.instance.onConnect += OnConnect;	
-    //     }
-    // }
-
-    // void OnMessage (int from, JToken data) {
-    //     Debug.Log ("message: " + data);
-    //     this.ButtonInput (data["action"].ToString());
-    // }
-
-    // void OnConnect (int device){
-    //     Debug.Log ("Successfully connected with device " + device);
-    //     connected = true;
-    // }
-
-    // public void ButtonInput (string input) {
-    //     Debug.Log (input);
-    //     switch (input) {
-    //         case "right":
-    //             movedRight = true;
-    //             break;
-    //         case "left":
-    //             movedLeft = true;
-    //             break;
-    //         case "right-up":
-    //             movedRight = false;
-    //             break;
-    //         case "left-up":
-    //             movedLeft = false;
-    //             break;
-    //         }
-    // }
 
     void Update() {   
         if (AirConsoleController.connected) {
             if (AirConsoleController.gameStarted) {
+                if (AirConsoleController.gameRestarted) {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                    AirConsoleController.gameRestarted = false;
+                }
                 boatSpeed += speedMultiplicator * Time.deltaTime;
                 rigidbody.AddForce(rigidbody.transform.forward * Time.deltaTime * boatSpeed);
 
@@ -80,13 +42,4 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-    // void OnDestroy () {
-    //     if (airConsole) {
-    //         if (AirConsole.instance != null) {
-    //             AirConsole.instance.onMessage -= OnMessage;				
-    //             AirConsole.instance.onConnect -= OnConnect;		
-    //         }
-    //     }
-    // }
 }

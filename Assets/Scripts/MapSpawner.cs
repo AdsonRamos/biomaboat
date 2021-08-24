@@ -5,39 +5,21 @@ using UnityEngine.UI;
 
 public class MapSpawner : MonoBehaviour
 {
-    public float offset = 1.3f;
-    public GameObject player;
+    public float offset = 270.5f;
     public bool moveMap = false;
-    private GameObject map;
-    // private MeshCollider mapCollider;
-    // private BoxCollider playerCollider;
-    void Start()
-    {   
-        // mapCollider = GameObject.FindGameObjectWithTag("MapCollider").GetComponent<MeshCollider>();
-        // playerCollider = player.GetComponent<BoxCollider>();
-    }
+    public GameObject map;
 
-    private void OnTriggerEnter()
+    private void OnTriggerEnter(Collider collider)
     {   
-        map = transform.parent.gameObject;
-        map.transform.position = new Vector3(transform.position.x, transform.position.x, transform.position.z + 272 - offset);
+        if (collider.gameObject.tag == "Player") {
+            map.transform.position = new Vector3(map.transform.position.x, map.transform.position.y, map.transform.position.z + offset);
+        }
     }
 
     void Update()
     {
         if (moveMap) {
-            map = transform.parent.gameObject;
-            map.transform.localPosition = new Vector3(transform.position.x, transform.position.x, transform.position.z + 272 - offset);
-            
-            Component[] transforms;
-
-            transforms = GetComponentsInChildren(typeof(Transform));
-
-            if (transforms != null)
-            {
-                foreach (Transform t in transforms)
-                    t.transform.localPosition = new Vector3(0f, 0f, 0f);
-            }
+            map.transform.position = new Vector3(map.transform.position.x, map.transform.position.y, map.transform.position.z + offset);
             moveMap = false;
         }
     }
